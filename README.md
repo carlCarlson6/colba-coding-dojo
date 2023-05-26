@@ -1,4 +1,4 @@
-## 🙋‍♀️ What's Coding Cata
+## 🤷🏻‍♂️ What's Coding Cata
 
 A code kata is a software development exercise in which the focus is not on solving a task or problem, but on learning new skills and developing successful routines. For each code kata, several solutions have to be found in order to learn from mistakes, gain experience and develop even better solutions.
 
