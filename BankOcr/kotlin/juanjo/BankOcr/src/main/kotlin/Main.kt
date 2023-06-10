@@ -26,6 +26,10 @@ fun getAccountNumber(zeroAccount: String): String {
         }
     }
 
+    return buildAccountNumber(itemList)
+}
+
+fun buildAccountNumber(itemList: MutableList<String>): String {
     val num1 = itemList[0] + itemList[9] + itemList[18]
     val num2 = itemList[1] + itemList[10] + itemList[19]
     val num3 = itemList[2] + itemList[11] + itemList[20]
@@ -47,8 +51,8 @@ fun getAccountNumber(zeroAccount: String): String {
             transformNumber(num9).toString()
 }
 
-fun transformNumber(accountNumber: String): Int? {
-    when (accountNumber) {
+fun transformNumber(accountDigit: String): Int? {
+    when (accountDigit) {
         Numbers.NUMBER0.value -> return 0
         Numbers.NUMBER1.value -> return 1
         Numbers.NUMBER2.value -> return 2
