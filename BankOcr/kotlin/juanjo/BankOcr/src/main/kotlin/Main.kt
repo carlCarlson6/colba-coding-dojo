@@ -1,5 +1,7 @@
 fun main() {
     println("Hello Kata!")
+
+    getAccountNumber("|_| |")
 }
 
 fun getAccountNumber(zeroAccount: String): String {
