@@ -10,60 +10,41 @@ import Foundation
 main()
 
 func main(){
-    print("Hello, Kata")
-    
-    let numberZero: String = " _ " +
-                             "| |" +
-                             "|_|"
-    
-    let bankAccount: String =
-    " _  _  _  _  _  _  _  _  _" +
-    "| || || || || || || || || |" +
-    "|_||_||_||_||_||_||_||_||_|"
-    
-    parserBankAccount(bankAccount: bankAccount)
-    
-    let test = parserZeroNumber(number: numberZero)
-    print(test)
+   
 }
 
-func parserBankAccount(bankAccount: String) -> String {
-    
-    var accountFirstLine: String = ""
-    var accountSecondLine: String = ""
-    var accountThirdLine: String = ""
-    
-    accountFirstLine = bankAccount.split(every: 9)[0]
-    accountSecondLine = bankAccount.split(every: 9)[1]
-    accountThirdLine = bankAccount.split(every: 9)[2]
-    
-    for i in 0 ... 8{
-        var index = 
+func parseBankAccount(bankAccount: String) -> String {
+    var numbers: [String] = []
+    var aux = bankAccount.split(every: 3)
+    for i in 0...8 {
+        numbers.append(aux[i] + aux[i+9] + aux[i+18])
     }
     
-    let firstNumber = accountFirstLine[0]+accountFirstLine[1]+accountFirstLine[2]
+    var result = ""
+    numbers.forEach { str in
+        result = result + parseNumber(number: str)
+    }
     
-    
-    return ""
+    return result
 }
 
-func parserZeroNumber(number: String) -> Int?{
+func parseNumber(number: String) -> String{
     if number.count == 9 {
         switch number {
-        case Numbers.NUMBER0.rawValue: return 0
-        case Numbers.NUMBER1.rawValue: return 1
-        case Numbers.NUMBER2.rawValue: return 2
-        case Numbers.NUMBER3.rawValue: return 3
-        case Numbers.NUMBER4.rawValue: return 4
-        case Numbers.NUMBER5.rawValue: return 5
-        case Numbers.NUMBER6.rawValue: return 6
-        case Numbers.NUMBER7.rawValue: return 7
-        case Numbers.NUMBER8.rawValue: return 8
-        case Numbers.NUMBER9.rawValue: return 9
-        default: return nil
+        case Numbers.NUMBER0.rawValue: return "0"
+        case Numbers.NUMBER1.rawValue: return "1"
+        case Numbers.NUMBER2.rawValue: return "2"
+        case Numbers.NUMBER3.rawValue: return "3"
+        case Numbers.NUMBER4.rawValue: return "4"
+        case Numbers.NUMBER5.rawValue: return "5"
+        case Numbers.NUMBER6.rawValue: return "6"
+        case Numbers.NUMBER7.rawValue: return "7"
+        case Numbers.NUMBER8.rawValue: return "8"
+        case Numbers.NUMBER9.rawValue: return "9"
+        default: return "?"
         }
     }
-    return nil
+    return "ILL"
 }
 
 enum Numbers: String {
