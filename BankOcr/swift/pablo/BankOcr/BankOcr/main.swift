@@ -10,7 +10,25 @@ import Foundation
 main()
 
 func main(){
-   
+    var numb1 = "    _  _     _  _  _  _  _ " +
+                "  | _| _||_||_ |_   ||_||_|" +
+                "  ||_  _|  | _||_|  ||_| _|"
+    
+    var numb2 = " _  _  _  _  _  _  _  _  _ " +
+                "|_ |_ |_ |_ |_ |_ |_ |_ |_ " +
+                " _| _| _| _| _| _| _| _| _|"
+
+    var numb3 = "    _  _     _  _  _  _  _ " +
+                "  | _| _||_||_ |_   ||_|| |" +
+                "  ||_  _|  | _||_|  ||_| _|"
+    
+    var numbers = [numb1, numb2, numb3]
+    
+    numbers.forEach { number in
+        var accountNumber = parseBankAccount(bankAccount: number)
+        var checksum = checkSumCheck(bankAccount: accountNumber)
+        print(accountNumber, checksum)
+    }
 }
 
 func parseBankAccount(bankAccount: String) -> String {
@@ -26,6 +44,24 @@ func parseBankAccount(bankAccount: String) -> String {
     }
     
     return result
+}
+
+func checkSumCheck(bankAccount: String) -> String {
+    if checkLegalNumber(bankAccount: bankAccount) {
+        let reversed = String(bankAccount.reversed())
+        var result = 0
+        for (i, char)  in reversed.enumerated() {
+            result = result + (char.wholeNumberValue ?? 0) * (i+1)
+        }
+        
+        return result % 11 != 0 ? "ERR" : ""
+    }
+    return "ILL"
+}
+
+
+func checkLegalNumber(bankAccount: String) -> Bool {
+    return !bankAccount.contains("?")
 }
 
 func parseNumber(number: String) -> String{

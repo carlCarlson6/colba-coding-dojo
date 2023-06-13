@@ -34,4 +34,36 @@ final class BankOcrTest: XCTestCase {
         XCTAssertEqual("123456789",account)
         
     }
+    func testCheckSumError(){
+        // GIVEN
+        let bankAccount: String = "457508001"
+
+        // WHEN
+        let status = checkSumCheck(bankAccount: bankAccount)
+        
+        // THEN
+        XCTAssertEqual("ERR", status)
+    }
+    
+    func testCheckSum(){
+        // GIVEN
+        let bankAccount: String = "457508000"
+
+        // WHEN
+        let status = checkSumCheck(bankAccount: bankAccount)
+        
+        // THEN
+        XCTAssertEqual("", status)
+    }
+    
+    func testCheckSumIllegal(){
+        // GIVEN
+        let bankAccount: String = "45750?000"
+
+        // WHEN
+        let status = checkSumCheck(bankAccount: bankAccount)
+        
+        // THEN
+        XCTAssertEqual("ILL", status)
+    }
 }
