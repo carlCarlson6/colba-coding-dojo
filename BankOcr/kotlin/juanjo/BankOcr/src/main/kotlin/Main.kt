@@ -23,17 +23,11 @@ fun getAccountNumber(zeroAccount: String): String {
 }
 
 fun buildAccountNumber(itemList: MutableList<String>): String {
-
-
-    return transformNumber(itemList[0]).toString() +
-            transformNumber(itemList[1]).toString() +
-            transformNumber(itemList[2]).toString() +
-            transformNumber(itemList[3]).toString() +
-            transformNumber(itemList[4]).toString() +
-            transformNumber(itemList[5]).toString() +
-            transformNumber(itemList[6]).toString() +
-            transformNumber(itemList[7]).toString() +
-            transformNumber(itemList[8]).toString()
+    val stringBuilder = StringBuilder()
+    for (i in 0 until 9) {
+        stringBuilder.append(transformNumber(itemList[i]).toString())
+    }
+    return stringBuilder.toString()
 }
 
 fun transformNumber(accountDigit: String): Int? {
