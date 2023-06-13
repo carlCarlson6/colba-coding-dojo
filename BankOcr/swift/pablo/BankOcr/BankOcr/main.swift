@@ -38,12 +38,9 @@ func parseBankAccount(bankAccount: String) -> String {
         numbers.append(aux[i] + aux[i+9] + aux[i+18])
     }
     
-    var result = ""
-    numbers.forEach { str in
-        result = result + parseNumber(number: str)
-    }
-    
-    return result
+    return numbers.map { number in
+        return parseNumber(number: number)
+    }.joined(separator: "")
 }
 
 func checkSumCheck(bankAccount: String) -> String {
