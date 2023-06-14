@@ -66,4 +66,31 @@ final class BankOcrTest: XCTestCase {
         // THEN
         XCTAssertEqual("ILL", status)
     }
+    
+    func testGetAllAltNumbers(){
+        // GIVEN
+        let number: String =    " _ " +
+                                "|_|" +
+                                "  |"
+
+        // WHEN
+        let result = getAltNumbers(number: number)
+        
+        // THEN
+        XCTAssertEqual(result.contains("4"), true)
+        XCTAssertEqual(result.contains("9"), true)
+    }
+    
+    func testGetAllAltNumbersError(){
+        // GIVEN
+        let number: String =    " _ " +
+                                "|_|" +
+                                "| |"
+
+        // WHEN
+        let result = getAltNumbers(number: number)
+        
+        // THEN
+        XCTAssertEqual(result.contains("0"), false)
+    }
 }
