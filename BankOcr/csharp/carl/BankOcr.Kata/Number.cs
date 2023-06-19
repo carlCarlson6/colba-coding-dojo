@@ -19,6 +19,9 @@ public class Number
         Seven => 7,
         Eight => 8,
         Nine  => 9,
-        _             => throw new ArgumentOutOfRangeException()
+        _     => throw new ArgumentOutOfRangeException()
     };
+
+    public static int GetElementIndex(int digit, int digitPosition, int row) => 
+        3*(digit-1) + digitPosition + row*27;
 }
