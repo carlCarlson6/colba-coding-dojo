@@ -10,21 +10,69 @@ import Foundation
 main()
 
 func main(){
-   
+    let numb1 = "    _  _     _  _  _  _  _ " +
+                "  | _| _||_||_ |_   ||_||_|" +
+                "  ||_  _|  | _||_|  ||_| _|"
+    
+    let numb2 = " _  _  _  _  _  _  _  _  _ " +
+                "|_ |_ |_ |_ |_ |_ |_ |_ |_ " +
+                " _| _| _| _| _| _| _| _| _|"
+
+    let numb3 = "    _  _     _  _  _  _  _ " +
+                "  | _| _||_||_ |_   ||_|| |" +
+                "  ||_  _|  | _||_|  ||_| _|"
+    
+    let numbers = [ numb1, numb2, numb3 ]
+    
+    numbers.forEach { number in
+        let accountNumber = parseBankAccount(bankAccount: number)
+        let checksum = checkSumCheck(bankAccount: accountNumber)
+        print(accountNumber, checksum)
+    }
 }
 
 func parseBankAccount(bankAccount: String) -> String {
     var numbers: [String] = []
-    var aux = bankAccount.split(every: 3)
+    let aux = bankAccount.split(every: 3)
     for i in 0...8 {
         numbers.append(aux[i] + aux[i+9] + aux[i+18])
     }
     
-    var result = ""
-    numbers.forEach { str in
-        result = result + parseNumber(number: str)
+    return numbers.map { number in
+        return parseNumber(number: number)
+    }.joined(separator: "")
+}
+
+func checkSumCheck(bankAccount: String) -> String {
+    if checkLegalNumber(bankAccount: bankAccount) {
+        let reversed = String(bankAccount.reversed())
+        var result = 0
+        for (i, char)  in reversed.enumerated() {
+            result = result + (char.wholeNumberValue ?? 0) * (i+1)
+        }
+        
+        return result % 11 != 0 ? "ERR" : ""
     }
-    
+    return "ILL"
+}
+
+func checkLegalNumber(bankAccount: String) -> Bool {
+    return !bankAccount.contains("?")
+}
+
+
+func getAltNumbers(number: String) -> [String] {
+    let chars = [" ", "|", "_"]
+    var result: [String] = []
+    for (i, _) in number.enumerated() {
+        for alt in chars {
+            let number = parseNumber(number: String(number.prefix(i)) + alt + number.dropFirst(i+1))
+            if number != "?" {
+                result.append(number)
+            }
+                
+        }
+    }
     return result
 }
 
@@ -80,5 +128,16 @@ extension String {
         }
 
         return result
+    }
+    
+    subscript(_ n: Int) -> Character {
+        get {
+            let idx = self.index(startIndex, offsetBy: n)
+            return self[idx]
+        }
+        set {
+            let idx = self.index(startIndex, offsetBy: n)
+            self.replaceSubrange(idx...idx, with: [newValue])
+        }
     }
 }

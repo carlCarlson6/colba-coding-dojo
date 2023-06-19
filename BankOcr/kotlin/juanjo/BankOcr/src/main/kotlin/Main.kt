@@ -1,56 +1,33 @@
 fun main() {
     println("Hello Kata!")
-
-    getAccountNumber("|_| |")
+    getAccountNumber("")
 }
 
 fun getAccountNumber(zeroAccount: String): String {
-    val accountLines = mutableListOf<String>()
-    var item = ""
-    for (i in 1..zeroAccount.length) {
-        item += zeroAccount[i - 1]
-        if (i == 27 || i == 54 || i == 81) {
-            accountLines.add(item)
-            item = ""
-        }
+
+    val pairOfNumbers: MutableList<String> = mutableListOf()
+
+    for (i in zeroAccount.indices step 3) {
+        val element1 = zeroAccount.get(i)
+        val element2 = zeroAccount.get(i + 1)
+        val element3 = zeroAccount.get(i + 2)
+        pairOfNumbers.add(element1.toString() + element2.toString() + element3.toString())
     }
 
-    var number = ""
-    val itemList = mutableListOf<String>()
-
-    accountLines.forEach {
-        for (i in 1..it.length) {
-            number += it[i - 1]
-            if (number.length == 3) {
-                itemList.add(number)
-                number = ""
-            }
-        }
+    val items = mutableListOf<String>()
+    for (i in 0..8) {
+        items.add(pairOfNumbers[i] + pairOfNumbers[i + 9] + pairOfNumbers[i + 18])
     }
 
-    return buildAccountNumber(itemList)
+    return buildAccountNumber(items)
 }
 
 fun buildAccountNumber(itemList: MutableList<String>): String {
-    val num1 = itemList[0] + itemList[9] + itemList[18]
-    val num2 = itemList[1] + itemList[10] + itemList[19]
-    val num3 = itemList[2] + itemList[11] + itemList[20]
-    val num4 = itemList[3] + itemList[12] + itemList[21]
-    val num5 = itemList[4] + itemList[13] + itemList[22]
-    val num6 = itemList[5] + itemList[14] + itemList[23]
-    val num7 = itemList[6] + itemList[15] + itemList[24]
-    val num8 = itemList[7] + itemList[16] + itemList[25]
-    val num9 = itemList[8] + itemList[17] + itemList[26]
-
-    return transformNumber(num1).toString() +
-            transformNumber(num2).toString() +
-            transformNumber(num3).toString() +
-            transformNumber(num4).toString() +
-            transformNumber(num5).toString() +
-            transformNumber(num6).toString() +
-            transformNumber(num7).toString() +
-            transformNumber(num8).toString() +
-            transformNumber(num9).toString()
+    val stringBuilder = StringBuilder()
+    for (i in 0 until 9) {
+        stringBuilder.append(transformNumber(itemList[i]).toString())
+    }
+    return stringBuilder.toString()
 }
 
 fun transformNumber(accountDigit: String): Int? {

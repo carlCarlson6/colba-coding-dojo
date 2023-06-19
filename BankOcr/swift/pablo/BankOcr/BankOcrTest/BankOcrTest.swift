@@ -34,4 +34,63 @@ final class BankOcrTest: XCTestCase {
         XCTAssertEqual("123456789",account)
         
     }
+    func testCheckSumError(){
+        // GIVEN
+        let bankAccount: String = "457508001"
+
+        // WHEN
+        let status = checkSumCheck(bankAccount: bankAccount)
+        
+        // THEN
+        XCTAssertEqual("ERR", status)
+    }
+    
+    func testCheckSum(){
+        // GIVEN
+        let bankAccount: String = "457508000"
+
+        // WHEN
+        let status = checkSumCheck(bankAccount: bankAccount)
+        
+        // THEN
+        XCTAssertEqual("", status)
+    }
+    
+    func testCheckSumIllegal(){
+        // GIVEN
+        let bankAccount: String = "45750?000"
+
+        // WHEN
+        let status = checkSumCheck(bankAccount: bankAccount)
+        
+        // THEN
+        XCTAssertEqual("ILL", status)
+    }
+    
+    func testGetAllAltNumbers(){
+        // GIVEN
+        let number: String =    " _ " +
+                                "|_|" +
+                                "  |"
+
+        // WHEN
+        let result = getAltNumbers(number: number)
+        
+        // THEN
+        XCTAssertEqual(result.contains("4"), true)
+        XCTAssertEqual(result.contains("9"), true)
+    }
+    
+    func testGetAllAltNumbersError(){
+        // GIVEN
+        let number: String =    " _ " +
+                                "|_|" +
+                                "| |"
+
+        // WHEN
+        let result = getAltNumbers(number: number)
+        
+        // THEN
+        XCTAssertEqual(result.contains("0"), false)
+    }
 }
