@@ -92,7 +92,7 @@ func parseNumber(number: String) -> String{
         default: return "?"
         }
     }
-    return "ILL"
+    return "?"
 }
 
 enum Numbers: String {
